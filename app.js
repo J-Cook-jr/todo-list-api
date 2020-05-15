@@ -88,6 +88,18 @@ app.put('/api/todos/:id', (req, res) => {
 });
 
 // DELETE /api/todos/:id
+app.delete('/api/todos/:id', (req, res) => {
+  let found = false;
+  todoList = todoList.filter((todo) => {
+    if (todo.id === Number.parseInt(req.params.id)) {
+      found = true;
+      return false;
+    }
+    return true;
+  });
+  const status = found ? 200 : 404;
+  res.status(status).json(todoList);
+});
 
 app.listen(3000, function () {
   console.log('Todo List API is now listening on port 3000...');
