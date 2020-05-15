@@ -27,6 +27,9 @@ const todoList = [
 ];
 
 // GET /api/todos
+app.get('/api/todos', (req, res) => {
+  res.json(todoList);
+});
 
 // GET /api/todos/:id
 
