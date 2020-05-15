@@ -32,8 +32,18 @@ app.get('/api/todos', (req, res) => {
 });
 
 // GET /api/todos/:id
+app.get('/api/todos/:id', (req, res) => {
+  const todo =
+    todoList.find((todo) => {
+      return todo.id === Number.parseInt(req.params.id);
+    }) || {};
+  const status = Object.keys(todo).length ? 200 : 404;
+  res.status(status).json(todo);
+});
+
 
 // POST /api/todos
+
 
 // PUT /api/todos/:id
 
