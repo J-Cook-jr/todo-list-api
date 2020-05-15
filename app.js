@@ -69,6 +69,23 @@ app.post('/api/todos', (req, res) => {
 
 
 // PUT /api/todos/:id
+app.put('/api/todos/:id', (req, res) => {
+  if (!req.body || !req.body.todo) {
+    res.status(400).json({
+      error: 'Provide todo text',
+    });
+    return;
+  }
+  let updatedTodo = {};
+  todoList.forEach((todo) => {
+    if (todo.id === Number.parseInt(req.params.id)) {
+      todo.todo = req.body.todo;
+      updatedTodo = todo;
+    }
+  });
+  const status = Object.keys(updatedTodo).length ? 200 : 404;
+  res.status(status).json(updatedTodo);
+});
 
 // DELETE /api/todos/:id
 
