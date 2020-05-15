@@ -43,6 +43,29 @@ app.get('/api/todos/:id', (req, res) => {
 
 
 // POST /api/todos
+app.post('/api/todos', (req, res) => {
+  if (req.body.todo) {
+    res.status(400).json({
+      error: 'Provide todo text',
+    });
+  } else {
+    const maxId = todoList.reduce((max, currentTodo) => {
+      if (currentTodo.id > max) {
+        max = currentTodo.id;
+      }
+      return max;
+    }, 0);
+
+    const newTodo = {
+      id: maxId + 1,
+      todo: req.body.todo,
+    };
+
+    todoList.push(newTodo);
+    res.json(newTodo);
+  }
+
+});
 
 
 // PUT /api/todos/:id
